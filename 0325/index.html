@@ -36,25 +36,63 @@
     <style>
         #d1
         {
-            background-color:lightblue;
-            height:300px;
-            border-style:solid;
-            border-width:3px;
-            margin:10px;
-            padding:10px;
-            border-radius:30px;
+            background-color: lightblue;
+            height: 300px;
+            border-style: solid;
+            border-width: 3px;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 30px;
         }
 
         #b1
         {
-            margin-left:10px;
+            margin-left: 10px;
         }
     </style>
 
+    <link rel="stylesheet" href="site.css" />
+
+    <style>
+    </style>
 </head>
 
 <body>
-    <div id="d1"></div>
+    <div id="d3"></div>
+    <br />
+    <button id="b3" class="btn btn-danger">
+        Load Excuse
+    </button>
+
+    <script>
+        "use strict";
+
+        let b3 = document.querySelector( "#b3" );
+        b3.addEventListener("click", loade );
+
+        let R = null;
+        let url = `https://excuser-three.vercel.app/v1/excuse/college/`;//
+        // async function
+        // sync
+        async function loade ()
+        {
+            let r = await fetch( url );
+            let rj = await r.json();
+            let d3 = document.querySelector( "#d3" );
+            d3.innerHTML = rj[ 0 ].excuse;
+            //R = rj;
+            //console.log( rj );
+        }
+
+        loade();
+
+
+    </script>
+
+
+    <div class="div1"></div>
+
+    <div id="d1" style="color:red;font-size:20px;"></div>
 
     <button id="b1" class="btn btn-warning btn-lg">
         <i class="bi bi-cloud-arrow-down"></i>
@@ -95,12 +133,12 @@
 
             let d1 = document.querySelector( "#d1" );
             d1.innerHTML = `<h1>Fact is:</h1>
-                            <br/>
-                            <h3>${ rj.fact }</h3>
-                            <br/>
-                            <h1>Length:</h1><br/>
-                            <h3>${rj.length}</h3>
-                            `;
+                                <br/>
+                                <h3>${ rj.fact }</h3>
+                                <br/>
+                                <h1>Length:</h1><br/>
+                                <h3>${ rj.length }</h3>
+                                `;
 
             // end func
         } );
