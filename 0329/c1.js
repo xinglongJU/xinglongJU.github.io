@@ -1,43 +1,46 @@
 "use strict";
 let R = null;
 
-let b1 = document.querySelector( "#b1" );
+let chart2 = null;// chart object js
 
-let chart1 = null;// for the chart to be shown in c1 canvas
-async function loadd ()
+let b2 = document.querySelector( "#b2" );
+
+async function showc ()
 {
-    // fetch()
-    let url = `https://juxinglong.github.io/static/data/states.json`;
+    let url = `https://juxinglong.github.io/static/HW/hw6/MIS3033.json`;
 
     let r = await fetch( url );// async
-    let rj = await r.json();// async
+    let rj = await r.json();
 
-    let c1 = document.querySelector( "#c1" );
-    if ( chart1 != null )
-    {
-        chart1.destroy();// if already chart, delete it
-    }
-    c1.innerHTML = ``;// clean the canvas to show another chart
+    let c2 = document.querySelector( "#c2" );
 
     let opts = {
-        type: "pie",
-        
+        type: "pie",// line, bar, pie
         data: {
-            labels: rj.map( x => x.st ),
-
-            datasets: [
-                {data:rj.map(x=>x.p),},
-            ],
+            labels: rj.map(x=>x.lg)  ,
+            datasets: [ {data: rj.map(x=>x.n),label:"Number", }, ],
         },
     };
-    chart1 = new Chart( c1, opts );
 
+    if ( chart2 != null )
+    {
+        chart2.destroy();
+    }
+    c2.innerHTML = ``;
+
+    chart2 = new Chart(c2,opts);
+
+    // anime.js
+    opts = {
+        targets: [c2,],
+        rotate: {value:60,duration:3000,},
+    };
+    anime(opts);
 
 
     R = rj;
     console.log( rj );
-
-    Swal.fire("Load data");
+    // fetch() async
 }
 
-b1.addEventListener( "click", loadd );
+b2.addEventListener( "click", showc );
